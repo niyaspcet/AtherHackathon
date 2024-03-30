@@ -9,9 +9,9 @@ void app_init(void)
 
     /* add application init calls */
     gpio_input_init();
-    pwm_init(PWM_CH_LED4, pwm_config_led4);
-    pwm_init(PWM_CH_TLAMP, pwm_config_tlamp);
     gpio_output_init();
+
+    can_int();
 }
 
 void app_loop(void)
@@ -23,6 +23,8 @@ void app_loop(void)
 
         /* add application iteration calls */
         gpio_app_iteration();
-        adc_app_iteration();
+
+        /* add application iteration calls */
+        can_app_iteration();
     }
 }

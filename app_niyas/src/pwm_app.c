@@ -8,6 +8,7 @@ asdk_errorcode_t pwm_init(asdk_pwm_channel_t pwm_ch, asdk_pwm_config_t *pwm_conf
     {
             system_printf("PWM Init Failed \n");
     }
+    ASDK_DEV_ERROR_ASSERT(error, ASDK_PWM_SUCCESS);
     (void)pwm_start(pwm_ch)
 }
 void pwm_start(asdk_pwm_channel_t pwm_ch)
@@ -17,6 +18,7 @@ void pwm_start(asdk_pwm_channel_t pwm_ch)
     {
             system_printf("PWM Start Failed \n");
     }
+    ASDK_DEV_ERROR_ASSERT(error, ASDK_PWM_SUCCESS);
 }
 void pwm_set_duty(uint8_t duty_cycle_in_percent)
 {
@@ -25,6 +27,12 @@ void pwm_set_duty(uint8_t duty_cycle_in_percent)
     {
             system_printf("PWM Duty Cycle Set Failed \n");
     }
+    ASDK_DEV_ERROR_ASSERT(error, ASDK_PWM_SUCCESS);
+}
+
+void nibbleninja4(void)
+{
+    
 }
 
 void pwm_increment_duty()
