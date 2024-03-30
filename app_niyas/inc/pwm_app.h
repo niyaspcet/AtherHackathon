@@ -14,7 +14,6 @@
 /* Macro: MCU PINs */
 
 /* MCU INPUT PINs */         
-
 /* MCU OUTPUT PINs */
 #define PWM_CH_LED4  ASDK_PWM_MODULE_CH_38
 #define PWM_CH_TLAMP  ASDK_PWM_MODULE_CH_41

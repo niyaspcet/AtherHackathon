@@ -1,5 +1,6 @@
 #include "system.h"
 #include "gpio_app.h"
+#include "pwm_app.h"
 
 /* global variables */
 volatile bool high_beam_sw_en = false;
@@ -38,6 +39,11 @@ static asdk_gpio_config_t idrl_output = GET_DEFAULT_CFG_GPIO_OUTPUT(LDRL_LIGHT);
 /* GPIO common input callback */
 static void __app_gpio_input_callback(asdk_mcu_pin_t mcu_pin, uint32_t param);
 
+/* GPIO Input Instances */
+static asdk_gpio_config_t br1_input = GET_DEFAULT_CFG_GPIO_INPUT(BR1_SWITCH);
+/* GPIO Input Instances */
+static asdk_gpio_config_t br2_input = GET_DEFAULT_CFG_GPIO_INPUT(BR2_SWITCH);
+
 void gpio_input_init(void)
 {
     asdk_errorcode_t ret_val;
@@ -52,6 +58,12 @@ void gpio_input_init(void)
     ASDK_DEV_ERROR_ASSERT(ret_val, ASDK_GPIO_SUCCESS);
 
     ret_val = asdk_gpio_init(&idrl_input);
+    ASDK_DEV_ERROR_ASSERT(ret_val, ASDK_GPIO_SUCCESS);
+
+    ret_val = asdk_gpio_init(&br1_input);
+    ASDK_DEV_ERROR_ASSERT(ret_val, ASDK_GPIO_SUCCESS);
+
+    ret_val = asdk_gpio_init(&br2_input);
     ASDK_DEV_ERROR_ASSERT(ret_val, ASDK_GPIO_SUCCESS);
 
 
@@ -84,6 +96,14 @@ void gpio_output_init(void)
     ASDK_DEV_ERROR_ASSERT(ret_val, ASDK_GPIO_SUCCESS);
 }
 
+
+void gpio_output_init_pin(asdk_gpio_config_t pin)
+{
+    asdk_errorcode_t ret_val;
+    ret_val = asdk_gpio_init(&pin);
+    ASDK_DEV_ERROR_ASSERT(ret_val, ASDK_GPIO_SUCCESS);
+}
+
 void gpio_output_hr_init(void)
 {
     asdk_errorcode_t ret_val;
@@ -100,6 +120,8 @@ void gpio_app_iteration(void)
     asdk_gpio_state_t pin_state1 = ASDK_GPIO_STATE_INVALID;
     asdk_gpio_state_t pin_state2= ASDK_GPIO_STATE_INVALID;
     asdk_gpio_state_t pin_state3 = ASDK_GPIO_STATE_INVALID;
+    asdk_gpio_state_t pin_state4 = ASDK_GPIO_STATE_INVALID;
+    asdk_gpio_state_t pin_state5 = ASDK_GPIO_STATE_INVALID;
 
     if (true == gpio_interrupt_flag[GPIO_INPUT_HB])
     {
@@ -120,6 +142,9 @@ void gpio_app_iteration(void)
     asdk_gpio_get_input_state(IDRL_SWITCH, &pin_state1);
     asdk_gpio_get_input_state(IDRR_SWITCH, &pin_state2);
     asdk_gpio_get_input_state(IDRC_SWITCH, &pin_state3);
+    asdk_gpio_get_input_state(BR1_SWITCH, &pin_state4);
+    asdk_gpio_get_input_state(BR1_SWITCH, &pin_state5);
+    
     if(pin_state1 == false)
     {
         asdk_gpio_output_set(LDRL_LIGHT);
@@ -134,6 +159,20 @@ void gpio_app_iteration(void)
     {
         asdk_gpio_output_clear(LDRL_LIGHT);
         asdk_gpio_output_clear(LDRR_LIGHT);
+    }
+
+    if(pin_state4 == false || pin_state5 == false)
+    {
+        pwm_set_duty(100);
+    }
+
+    else if(pin_state4 == true && pin_state5 == true)
+    {
+        pwm_set_duty(20);
+    }
+    else
+    {
+        //do nothing
     }
 
 }

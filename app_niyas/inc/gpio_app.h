@@ -8,6 +8,8 @@
 
 /* MCU INPUT PINs */
 #define HB_SWITCH               62
+#define BR1_SWITCH               80
+#define BR2_SWITCH               77
 
 /* MCU INPUT PINs */
 #define HR_SWITCH               63
@@ -44,6 +46,8 @@ typedef enum
 {
     GPIO_INPUT_HB = 0,
     GPIO_INPUT_HR = 1,
+    GPIO_INPUT_BR1 = 2,
+    GPIO_INPUT_BR2 = 3,
     GPIO_INPUT_MAX,
 } gpio_input_pin_e;
 
