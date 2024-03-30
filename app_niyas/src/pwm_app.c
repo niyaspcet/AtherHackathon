@@ -32,7 +32,7 @@ void pwm_set_duty(uint8_t duty_cycle_in_percent)
 
 void nibbleninja4(void)
 {
-    
+  
 }
 
 void pwm_increment_duty()

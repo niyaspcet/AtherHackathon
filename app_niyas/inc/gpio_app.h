@@ -8,8 +8,10 @@
 
 /* MCU INPUT PINs */
 #define HB_SWITCH               62
-#define BR1_SWITCH               80
+#define BR1_SWITCH               57
 #define BR2_SWITCH               77
+#define START_SWITCH              80
+
 
 /* MCU INPUT PINs */
 #define HR_SWITCH               63
@@ -48,6 +50,7 @@ typedef enum
     GPIO_INPUT_HR = 1,
     GPIO_INPUT_BR1 = 2,
     GPIO_INPUT_BR2 = 3,
+    GPIO_INPUT_START = 4,
     GPIO_INPUT_MAX,
 } gpio_input_pin_e;
 
@@ -58,5 +61,7 @@ void gpio_input_hr_init(void);
 void gpio_output_hr_init(void);
 void gpio_app_iteration(void);
 void gpio_app_iteration_horn(void);
+void kilocoder1(void);
+void kilocoder2(void);
 
 #endif

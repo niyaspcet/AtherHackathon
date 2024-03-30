@@ -47,7 +47,7 @@ asdk_pwm_config_t pwm_config_led4 = {
         .clock_frequency = 1000000,
         .prescaler = ASDK_PWM_PRESCALER_DIVBY_1,
     },
-    .pwm_frequency_in_Hz = 1000,                     // Desired PWM frequency
+    .pwm_frequency_in_Hz = 1500,                     // Desired PWM frequency
 };
 
 /* Function declation for GPIO App */
