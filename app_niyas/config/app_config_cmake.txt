@@ -1,0 +1,30 @@
+# ----- User confiugration starts ----- #
+
+### configure project name
+SET(APP_NAME "ASDK {app_name} application")
+
+### assign name to generate the elf, srec and hex file
+SET(APP_ELF_NAME "{app_name}")
+
+### configure LD file
+SET(APP_LINKER_FILE
+    ${{CMAKE_CURRENT_SOURCE_DIR}}/app/linker_files/preprocessed_linker_file_cm0plus.ld
+)
+
+### add source files and include paths
+
+# NOTE: you must add include paths under 'APP_USER_INC' variable
+SET(APP_USER_INC 
+    ${{CMAKE_CURRENT_SOURCE_DIR}}/app/generated_code
+    # add other includes from here
+    # example:
+    ${{CMAKE_CURRENT_SOURCE_DIR}}/app/app_imu
+)
+
+# NOTE: you must add source paths under 'APP_USER_SRC' variable
+AUX_SOURCE_DIRECTORY(${{CMAKE_CURRENT_SOURCE_DIR}}/app/generated_code APP_USER_SRC)
+# add other source paths from here
+# example:
+# AUX_SOURCE_DIRECTORY(${{CMAKE_CURRENT_SOURCE_DIR}}/app/app_imu APP_USER_SRC)
+
+# ----- User confiugration ends ----- #
